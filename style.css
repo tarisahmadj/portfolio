@@ -1,104 +1,390 @@
-* {
+/* General Reset */
+body, h1, h2, p, ul, li, form, input, textarea, button {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
-  }
-  
-  header {
-    background: #333;
-    color: #fff;
+    background: #FFE6A9;
+    color: #659287;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 230, 169, 0.9);
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  header .logo {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease-in-out;
+}
+
+header.scroll-active {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 230, 169, 1);
+}
+
+header .logo {
     font-size: 1.5rem;
     font-weight: bold;
-  }
-  
-  header ul {
+    color: #DEAA79;
+}
+
+header ul.nav-links {
     list-style: none;
     display: flex;
-  }
-  
-  header ul li {
-    margin-left: 20px;
-  }
-  
-  header ul li a {
+    gap: 20px;
+    flex-wrap: wrap;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+/* Menu links */
+header ul.nav-links li a {
     text-decoration: none;
-    color: #fff;
-  }
-  
-  .hero {
+    color: #659287;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease, background 0.3s ease;
+    border-radius: 5px;
+}
+
+header ul.nav-links li a:hover {
+    color: white;
+    background: #659287;
+}
+
+/* Default state - always visible on Desktop */
+header ul.nav-links {
+    display: flex;
+}
+
+/* Hide the menu by default for mobile and tablet views */
+@media (max-width: 768px) {
+    header ul.nav-links {
+        display: none; /* Hide by default */
+        flex-direction: column;
+        width: 100%;
+        background: rgba(255, 230, 169, 0.9); /* Make background solid on mobile */
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    header ul.nav-links.active {
+        display: flex;
+        max-height: 300px; /* Adjust max-height to fit the menu */
+    }
+
+    /* Menu Toggle Button (visible only in mobile) */
+    button.menu-toggle {
+        display: block;
+    }
+}
+
+/* Menu Toggle Button */
+button.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #659287;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #DEAA79; /* Latar belakang */
+    color: white;
     text-align: center;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    color: #fff;
-    padding: 5rem 2rem;
+    position: relative;
+    padding: 0 2rem;
+    transition: background 0.3s ease;
   }
   
   .hero h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    animation: fadeIn 2s ease-in-out 0.5s;
   }
   
   .hero .btn {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.5rem 2rem;
-    background: #fff;
-    color: #333;
+    padding: 1rem 2rem;
+    background: #B1C29E; /* Warna tombol */
+    color: white;
     text-decoration: none;
-    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s;
+    animation: fadeIn 2s ease-in-out 1s;
   }
   
-  section {
-    padding: 2rem;
+  .hero .btn:hover {
+    background: #659287; /* Hover tombol */
+  }
+
+  
+  /* Pulsing Effect for glow */
+  @keyframes pulse {
+    0%, 100% {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1), 0 0 60px rgba(255, 179, 0, 0.4);
+    }
+    50% {
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2), 0 0 80px rgba(255, 179, 0, 0.8);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+
+section {
+    padding: 4rem 2rem;
+}
+
+#about {
+    background: #FFE6A9;
+}
+
+#projects {
+    background: #B1C29E; /* Latar belakang untuk bagian proyek */
+    padding: 4rem 2rem;
+    color: white;
+  }
+  
+  #projects h2 {
     text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: white; /* Warna judul */
   }
   
-  .services-container {
+  .projects-container {
     display: flex;
-    justify-content: space-around;
-    margin-top: 2rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
   }
   
-  .service {
-    width: 30%;
-    background: #f4f4f4;
-    padding: 1rem;
+  .project {
+    background: #DEAA79; /* Latar belakang proyek */
+    padding: 2rem;
     border-radius: 5px;
-  }
-  
-  form input,
-  form textarea,
-  form button {
-    width: 100%;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  form button {
-    background: #333;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  footer {
     text-align: center;
-    padding: 1rem;
-    background: #333;
-    color: #fff;
+    color: white;
+    flex: 1 1 calc(33.333% - 2rem); /* Responsif */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
   }
   
+  .project:hover {
+    transform: scale(1.05); /* Animasi saat hover */
+  }
+  
+  .project h3 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+  }
+  
+  .project p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .project a {
+    padding: 0.8rem 2rem;
+    background: #659287; /* Tombol untuk melihat proyek */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  .project a:hover {
+    background: #B1C29E; /* Warna tombol hover */
+  }
+  
+  .embed-wrapper {
+    width: 100%;
+    height: 300px; /* Tinggi area embed */
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .embed-wrapper embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  @media (max-width: 768px) {
+    .project {
+      flex: 1 1 calc(100% - 2rem); /* Tampilan penuh pada mobile */
+    }
+    .embed-wrapper {
+      height: 250px; /* Tinggi area embed pada mobile */
+    }
+  }
+  
+  
+  #contact {
+    background: #DEAA79; /* Latar belakang bagian kontak */
+    padding: 4rem 2rem;
+    color: white;
+    text-align: center;
+}
+
+#contact h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: white; /* Warna teks judul */
+}
+
+#contact p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.contact-item {
+    background: #659287; /* Warna latar belakang item kontak */
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: left;
+    color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(33.333% - 2rem); /* Ukuran responsif */
+    max-width: 300px;
+}
+
+.contact-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #FFE6A9;
+}
+
+.contact-item p, .contact-item ul {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.contact-item a {
+    text-decoration: none;
+    color: #FFE6A9;
+    font-weight: bold;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
+}
+
+.contact-item ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-item ul li {
+    margin-bottom: 0.5rem;
+}
+
+.contact-item ul li a {
+    color: #FFE6A9;
+}
+
+.contact-item ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Pesan Alternatif */
+#contact h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .contact-info {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .contact-item {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
+
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: #659287;
+    color: white;
+}
+
+  
+  /* Responsive Design */
+@media (max-width: 768px) {
+    button.menu-toggle {
+        display: block;
+    }
+
+    header ul.nav-links {
+        display: none;
+    }
+
+    header ul.nav-links.active {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero .btn {
+        padding: 0.6rem 1.5rem;
+    }
+
+    #projects .service {
+        flex: 1 1 calc(100% - 2rem);
+    }
+
+    section {
+        padding: 2rem 1rem;
+    }
+}
